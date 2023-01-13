@@ -1,10 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+
 .App {
   text-align: center;
+  font-family: 'Bungee', cursive;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.custom-font {
+  font-family: 'Bungee', cursive;
+}
+
+body {
+  font-family: 'Bungee', cursive;
+  background-image: url("./images/background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgb(33, 11, 3);
+  height: 100vh;
+}
+
+label {
+  margin: 10px;
+  color: white;
+  text-shadow: 0 0 50px green, 0 0 40px red, 0 0 30px black, 0 0 10px blue;
+}
+
+input {
+  border-radius: 15px;
+  backdrop-filter: blur(1);
+}
+
+button {
+  border-radius: 20px;
+  background: transparent;
+  border: none;
+}
+
+.btn-custom {
+  border-radius: 15px;
+  width: 55%;
+}
+
+.button-text {
+  margin-top: -40px;
+  color: white;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -6,6 +6,9 @@ import axios from "axios";
 import steakContractAbi from "./contractAbis/steakAbi.json";
 import erc20Abi from "./contractAbis/erc20Abi.json";
 import { Network, Alchemy } from "alchemy-sdk";
+import btn from "./images/button.png";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 require("dotenv").config();
 
 const config = {
@@ -31,6 +34,7 @@ function ConnectMetamask() {
     fullName: "",
     email: "",
     deliveryAddress: "",
+    discordId: "",
     telephone: "",
   };
   const [stateValues, setStateValues] = useState(initialState);
@@ -38,6 +42,8 @@ function ConnectMetamask() {
   const [steakBalance, setSteakBalance] = useState();
   const [userTokenList, setUserTokenList] = useState();
   const [transferAmount, setTransferAmount] = useState([]);
+  const [showPopup, setShowPopup] = useState(true);
+
 
   const ContractAddress = process.env.REACT_APP_STEAK_CONTRACT_ADDRESS;
   const SteakContract = new web3.eth.Contract(
@@ -179,23 +185,49 @@ function ConnectMetamask() {
 
   return (
     <>
-      <button onClick={connect}>Activate</button>
+    <Modal
+        show={showPopup}
+        // onHide={handleClose}
+        backdrop="static"
+        // keyboard={false}
+      >
+        <Modal.Header >
+          <Modal.Title>Dear User, </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        Please note the following data you are about to enter is collected for PLC usage only and is protected in our secured database. The data is captured only for shipping purposes of any IRL rewards and to help streamline the process.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button style={{backgroundImage: `url(${btn})`, backgroundPosition: "center"}} onClick={() => setShowPopup(false)}>
+            Close
+          </Button>
+          {/* <Button variant="primary">Understood</Button> */}
+        </Modal.Footer>
+      </Modal>
+      {!account && <button style={{position: "absolute", top: "40%", right: "40%"}} onClick={connect} >
+              <img src={btn} className="btn btn-custom" style={{width: "60%"}} />
+              <p className="button-text">Connect</p>
+              </button>}
 
       {account ? (
         !currentUserData ? (
-          <form onSubmit={handleSubmit}>
-            <label>
+          <form className="d-flex flex-column text-center
+           items-center align-items-center
+            justify-content-center p-5"  onSubmit={handleSubmit}>
+            {/* <label>
               Profile picture:
               <input
                 type="file"
                 value={null}
                 onChange={(e) => console.log(e.target.value)}
               />
-            </label>
+            </label> */}
+            <div className="d-flex flex-column" style={{maxWidth: 500, backdropFilter: "blur(5px)", borderRadius: 20}}>
             <label>
               Full Name:
-              <input
+             <br/> <input
                 type="text"
+                required
                 value={stateValues.fullName}
                 onChange={(e) =>
                   setStateValues((prev) => ({
@@ -207,8 +239,9 @@ function ConnectMetamask() {
             </label>
             <label>
               Email:
-              <input
-                type="text"
+             <br/> <input
+                type="email"
+                required
                 value={stateValues.email}
                 onChange={(e) =>
                   setStateValues((prev) => ({
@@ -220,8 +253,9 @@ function ConnectMetamask() {
             </label>
             <label>
               Delivery Address:
-              <input
+             <br/> <input
                 type="text"
+                required
                 value={stateValues.deliveryAddress}
                 onChange={(e) =>
                   setStateValues((prev) => ({
@@ -232,9 +266,24 @@ function ConnectMetamask() {
               />
             </label>
             <label>
-              Telephone:
-              <input
+              Discord Id:
+             <br/> <input
                 type="text"
+                required
+                value={stateValues.deliveryAddress}
+                onChange={(e) =>
+                  setStateValues((prev) => ({
+                    ...prev,
+                    discordId: e.target.value,
+                  }))
+                }
+              />
+            </label>
+            <label>
+              Contact:
+             <br/> <input
+                type="text"
+                required
                 value={stateValues.telephone}
                 onChange={(e) =>
                   setStateValues((prev) => ({
@@ -244,7 +293,12 @@ function ConnectMetamask() {
                 }
               />
             </label>
-            <input type="submit" value="Submit" />
+            <br />
+            <button type="submit" value="Submit" >
+              <img src={btn} className="btn btn-custom" />
+              <p className="button-text">Submit</p>
+              </button>
+            </div>
           </form>
         ) : (
           <>

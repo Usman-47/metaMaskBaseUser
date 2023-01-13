@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 import { Web3ReactProvider } from "@web3-react/core";
 import ConnectMetamask from "./ConnectMetamask";
