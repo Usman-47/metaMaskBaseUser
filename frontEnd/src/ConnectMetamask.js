@@ -270,7 +270,7 @@ function ConnectMetamask() {
              <br/> <input
                 type="text"
                 required
-                value={stateValues.deliveryAddress}
+                value={stateValues.discordId}
                 onChange={(e) =>
                   setStateValues((prev) => ({
                     ...prev,
