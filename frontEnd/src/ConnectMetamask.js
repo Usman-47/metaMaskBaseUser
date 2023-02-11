@@ -358,7 +358,7 @@ function ConnectMetamask() {
                 borderRadius: 20,
               }}
             >
-              <h1>You have alredy submit the form</h1>
+              <h1>Load Steak Tokens into Roarlinko</h1>
               <h1>Transfer token</h1>
               {userTokenList?.map((data, i) => (
                 <div>
