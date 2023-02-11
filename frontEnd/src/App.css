@@ -72,6 +72,10 @@ button {
   color: #61dafb;
 }
 
+#parentReward.modal-dialog {
+  max-width: 80%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

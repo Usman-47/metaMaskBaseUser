@@ -9,6 +9,9 @@ import { Network, Alchemy } from "alchemy-sdk";
 import btn from "./images/button.png";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import rewardImg from './images/rewards.png';
+import logo from './images/logo.png';
+import plclogo from './images/plclogo.png';
 require("dotenv").config();
 
 const config = {
@@ -43,6 +46,7 @@ function ConnectMetamask() {
   const [userTokenList, setUserTokenList] = useState();
   const [transferAmount, setTransferAmount] = useState([]);
   const [showPopup, setShowPopup] = useState(true);
+  const [showReward, setShowReward] = useState(false);
 
   const ContractAddress = process.env.REACT_APP_STEAK_CONTRACT_ADDRESS;
   const SteakContract = new web3.eth.Contract(
@@ -184,14 +188,54 @@ function ConnectMetamask() {
 
   return (
     <>
+     <Modal
+        show={showPopup}
+        // onHide={handleClose}
+        backdrop="static"
+        // keyboard={false}
+      >
+        <Modal.Header >
+          <Modal.Title>Dear User, </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        Please note the following data you are about to enter is collected for PLC usage only and is protected in our secured database. The data is captured only for shipping purposes of any IRL rewards and to help streamline the process.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button style={{backgroundImage: `url(${btn})`, backgroundPosition: "center"}} onClick={() => setShowPopup(false)}>
+            Close
+          </Button>
+          {/* <Button variant="primary">Understood</Button> */}
+        </Modal.Footer>
+      </Modal>
+       {/* reward modal */}
+      <Modal
+        show={showReward}
+        // onHide={handleClose}
+        backdrop="static"
+        id="parentReward"
+        // keyboard={false}
+      >
+        <Modal.Body>
+        <img src={rewardImg} style={{width: "100%"}} />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button style={{backgroundImage: `url(${btn})`, backgroundPosition: "center"}} onClick={() => setShowReward(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <img src={plclogo} style={{ position: "absolute", bottom: "50px", left: "50px", width: 100 }} />
       {!account && (
+      <div style={{ position: "absolute", top: "20%", right: "50%", translate: "50%", textAlign: "center" }}>
+      <img src={logo} style={{ width: "100%" }}/>
         <button
-          style={{ position: "absolute", top: "40%", right: "40%" }}
+          // style={{ position: "absolute", top: "40%", right: "40%" }}
           onClick={connect}
         >
           <img src={btn} className="btn btn-custom" style={{ width: "60%" }} />
           <p className="button-text">Connect</p>
         </button>
+        </div>
       )}
 
       {account ? (
@@ -327,6 +371,7 @@ function ConnectMetamask() {
                   <div>
                     <button
                       className="btn btn-custom"
+                      style={{color: "white"}}
                       onClick={() => {
                         handleTransfer(data, i);
                       }}
@@ -339,8 +384,14 @@ function ConnectMetamask() {
                   </div>
                 </div>
               ))}
-              {steakBalance > 1 ? (
+              {steakBalance > 1 ? (<>
                 <h1>{`You have ${steakBalance} Steak tokens. you can play the game`}</h1>
+                <button
+          onClick={() => setShowReward(true)}
+        >
+          <img src={btn} className="btn btn-custom" style={{ width: "60%" }} />
+          <p className="button-text">Play</p>
+        </button></>
               ) : (
                 <h1>You must have at least one Steak token to play the game</h1>
               )}
