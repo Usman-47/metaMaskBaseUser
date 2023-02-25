@@ -13,6 +13,7 @@ import rewardImg from './images/rewards.png';
 import logo from './images/logo.png';
 import plclogo from './images/plclogo.png';
 import warningPic from './images/warning.png';
+import steakToken from './images/steakToken.png';
 import animation from './images/animation.mp4';
 require("dotenv").config();
 
@@ -49,6 +50,8 @@ function ConnectMetamask() {
   const [transferAmount, setTransferAmount] = useState([]);
   const [showPopup, setShowPopup] = useState(true);
   const [showReward, setShowReward] = useState(false);
+  const [userData, setUserData] = useState();
+
 
   const plcToken = '0x341b81a07a827e572eb9cdcf62728fea5382199a'
 
@@ -94,6 +97,8 @@ function ConnectMetamask() {
   const getUserRecord = async () => {
     let res = await axios.get(`http://localhost:8000/user/getUesr/${account}`);
     if (res.data) {
+      console.log(res.data)
+      setUserData(res.data)
       setCurrentUserData(true);
     } else {
       setCurrentUserData(false);
@@ -148,15 +153,15 @@ function ConnectMetamask() {
       data?.token?.contractAddress
     );
     /* global BigInt */
-    let tx = await ercTokenContrct.methods
-      .transfer(
-        "0xF1d3217f5D8368248E9AfBAd25e5396b5a93599b",
-        BigInt(transferAmount[i] * Math.pow(10, data.metadata.decimals))
-      )
-      .send({
-        from: account,
-      });
-    if (tx.blockHash) {
+    // let tx = await ercTokenContrct.methods
+    //   .transfer(
+    //     "0xF1d3217f5D8368248E9AfBAd25e5396b5a93599b",
+    //     BigInt(transferAmount[i] * Math.pow(10, data.metadata.decimals))
+    //   )
+    //   .send({
+    //     from: account,
+    //   });
+    // if (tx.blockHash) {
       let body = {
         tokenName: data.metadata.name,
         tokenAmount: transferAmount[i],
@@ -166,7 +171,7 @@ function ConnectMetamask() {
         "http://localhost:8000/user/updateUser",
         body
       );
-    }
+    // }
   };
 
   const handleSubmit = async (e) => {
@@ -269,7 +274,7 @@ function ConnectMetamask() {
               }}
             >
               <label>
-                Full Name:
+                Full Name*
                 <br />{" "}
                 <input
                   type="text"
@@ -284,7 +289,7 @@ function ConnectMetamask() {
                 />
               </label>
               <label>
-                Email:
+                Email*
                 <br />{" "}
                 <input
                   type="email"
@@ -299,7 +304,7 @@ function ConnectMetamask() {
                 />
               </label>
               <label>
-                Delivery Address:
+                Delivery Address
                 <br />{" "}
                 <input
                   type="text"
@@ -313,7 +318,7 @@ function ConnectMetamask() {
                 />
               </label>
               <label>
-                Discord Id:
+                Discord Id*
                 <br />{" "}
                 <input
                   type="text"
@@ -328,7 +333,7 @@ function ConnectMetamask() {
                 />
               </label>
               <label>
-                Phone no.:
+                Phone #
                 <br />{" "}
                 <input
                   type="text"
@@ -375,14 +380,33 @@ function ConnectMetamask() {
               }}
               >Load Steak Tokens into Roarlinko</h1>
               {/* <h1>Transfer token</h1> */}
+        <p style={{border: "solid white 1px", padding: 5, textShadow: "0 0 10px black", background: "#f70018", borderRadius: 10}}>Current Roarlinko Balance : {userData?.tokenAmount}</p>
+
               {userTokenList?.filter(o => o.token.contractAddress === plcToken)?.map((data, i) => (
                 <div>
+                  <img src={steakToken} width="50" />
                   <input
+                    style={{width: 200}}
                     value={transferAmount[i]}
                     onChange={(e) => {
                       handleTransferAmount(e, i);
                     }}
                   />
+                   <button
+                     
+                     style={{color: "white",}}
+                     onClick={() => {
+                       let temp = [...transferAmount];
+                       temp[i] = data.token.tokenBalance / 10 ** data.metadata.decimals
+                       setTransferAmount(temp);
+                       
+                     }}
+                   >
+                     {/* {data.metadata.name} */}
+                     {/* <img src={btn} className="" style={{ width: "60%" }} /> */}
+                      <p className="button-text" style={{ border: "white solid 1px", padding: 5, borderRadius: 10}}> Max</p>
+                    
+                   </button>
                   <div>
                     <button
                      
@@ -393,27 +417,13 @@ function ConnectMetamask() {
                     >
                       {/* {data.metadata.name} */}
                       <img src={btn} className="btn btn-custom" style={{ width: "60%" }} />
-                       <p className="button-text"> Top up</p>
+                       <p className="button-text"> Load</p>
                      
                     </button>
-                    <button
-                     
-                      style={{color: "white"}}
-                      onClick={() => {
-                        let temp = [...transferAmount];
-                        temp[i] = data.token.tokenBalance / 10 ** data.metadata.decimals
-                        setTransferAmount(temp);
-                        
-                      }}
-                    >
-                      {/* {data.metadata.name} */}
-                      <img src={btn} className="btn btn-custom" style={{ width: "60%" }} />
-                       <p className="button-text"> Load Max</p>
-                     
-                    </button>
-                    <h1>
+                   
+                    {/* <h1>
                       {data.token.tokenBalance / 10 ** data.metadata.decimals}
-                    </h1>
+                    </h1> */}
                   </div>
                 </div>
               ))}
@@ -424,7 +434,8 @@ function ConnectMetamask() {
         >
           <img src={btn} className="btn btn-custom" style={{ width: "60%" }} />
           <p className="button-text">Next</p>
-        </button></>
+        </button>
+         </>
               ) : (
                 <h1>You must have at least one Steak token to play the game</h1>
               )}
@@ -432,6 +443,7 @@ function ConnectMetamask() {
           </>
         )
       ) : null}
+     
     </>
   );
 }
