@@ -15,6 +15,7 @@ import plclogo from './images/plclogo.png';
 import warningPic from './images/warning.png';
 import steakToken from './images/steakToken.png';
 import animation from './images/animation.mp4';
+import background from './images//background.jpg';
 require("dotenv").config();
 
 const config = {
@@ -202,7 +203,15 @@ function ConnectMetamask() {
   };
 
   return (
-    <>
+    <div style={{
+      backgroundImage: `url(${background})`,
+      backgroundPosition: "center",
+      height: "100vh",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundColor: "rgb(33, 11, 3)"
+
+    }}>
      <Modal
         show={showPopup}
         // onHide={handleClose}
@@ -444,7 +453,7 @@ function ConnectMetamask() {
         )
       ) : null}
      
-    </>
+    </div>
   );
 }
 export default ConnectMetamask;
