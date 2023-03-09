@@ -64,7 +64,7 @@ function Profile() {
       justifyContent: "center"
     }}>
       <div style={{position: "absolute",  left: "1%", top: 50}}>
-        <img src={plclogo} width="350px"/>
+        <img src={plclogo} width="100%"/>
       </div>
 
 
