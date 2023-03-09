@@ -41,9 +41,18 @@ body {
   color: #eee;
 }
 
+.example::-webkit-scrollbar {
+  display: none;
+}
+
+.example {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 .editIcon {
   color: white;
-  font-size: 100px;
+  font-size: 50px;
   position: absolute;
   top: 50%;
   left: 50%;

@@ -9,6 +9,7 @@ import plclogo from '../images/newPLCLogo.png'
 import placeholder from '../images/placeholder.png'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import Reward from "./reward";
 
 
 
@@ -17,6 +18,9 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons'
 function Profile() {
   const { active, account, library, connector, activate, deactivate } =
     useWeb3React();
+
+  const [showReward, setShowReward] = useState(false)
+
 
   let web3 = new Web3(window?.web3?.currentProvider);
   if (window.ethereum) {
@@ -47,8 +51,9 @@ function Profile() {
       return "failed";
     }
   }
-  return (
-    <div style={{
+  return (<>
+    {!showReward ? 
+      <div style={{
       backgroundImage: `url(${background})`,
       backgroundPosition: "center",
       height: "100vh",
@@ -58,7 +63,7 @@ function Profile() {
       display: "flex",
       justifyContent: "center"
     }}>
-      <div style={{position: "absolute", left: 50, top: 50}}>
+      <div style={{position: "absolute",  left: "1%", top: 50}}>
         <img src={plclogo} width="350px"/>
       </div>
 
@@ -130,7 +135,7 @@ function Profile() {
             <Form.Control type="text"/>
           </Form.Group>
           <Form.Group className="mb-3">
-          <Button style={{width: "100%"}} variant="danger" type="submit">
+          <Button style={{width: "100%"}} variant="danger" onClick={() => setShowReward(true)}>
             Chest Collected : 5
           </Button>
           </Form.Group>
@@ -141,7 +146,9 @@ function Profile() {
           </Form.Group>
         </Form>
       </div>}
-    </div>
+    </div> :
+      <Reward setShowReward={setShowReward} />}
+      </>
   )
 }
 export default Profile;
