@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Web3 from "web3";
 import Profile from "./components/profile";
+import Jackpot from "./components/jackpot";
 
 function getLibrary(provider) {
   return new Web3(provider);
@@ -22,6 +23,10 @@ function App() {
     {
       path: "/profile",
       element: <Profile />,
+    },
+    {
+      path: "/jackpot",
+      element: <Jackpot />,
     },
   ]);
 
