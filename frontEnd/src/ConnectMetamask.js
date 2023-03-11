@@ -42,16 +42,16 @@ function ConnectMetamask() {
     email: "",
     deliveryAddress: "",
     discordId: "",
-    telephone: "",
+    phone: "",
   };
   const [stateValues, setStateValues] = useState(initialState);
   const [currentUserData, setCurrentUserData] = useState();
+  const [userData, setUserData] = useState();
   const [steakBalance, setSteakBalance] = useState();
   const [userTokenList, setUserTokenList] = useState();
   const [transferAmount, setTransferAmount] = useState([]);
   const [showPopup, setShowPopup] = useState(true);
   const [showReward, setShowReward] = useState(false);
-  const [userData, setUserData] = useState();
 
 
   const plcToken = '0x341b81a07a827e572eb9cdcf62728fea5382199a'
@@ -65,7 +65,7 @@ function ConnectMetamask() {
   useEffect(() => {
     let videoSeen = localStorage.getItem('video') === 'seen'
     setShowPopup(!videoSeen)
-  },[])
+  }, [])
 
   const getAllTokenOfUser = async () => {
     const balances = await alchemy.core.getTokenBalances(account);
@@ -163,15 +163,15 @@ function ConnectMetamask() {
     //     from: account,
     //   });
     // if (tx.blockHash) {
-      let body = {
-        tokenName: data.metadata.name,
-        tokenAmount: transferAmount[i],
-        account,
-      };
-      const response = await axios.patch(
-        "http://localhost:8000/user/updateUser",
-        body
-      );
+    let body = {
+      tokenName: data.metadata.name,
+      tokenAmount: transferAmount[i],
+      account,
+    };
+    const response = await axios.patch(
+      "http://localhost:8000/user/updateUser",
+      body
+    );
     // }
   };
 
@@ -181,7 +181,7 @@ function ConnectMetamask() {
       !stateValues.fullName ||
       !stateValues.email ||
       !stateValues.deliveryAddress ||
-      !stateValues.telephone
+      !stateValues.phone
     ) {
       alert("Please fill the form first");
       return;
@@ -191,7 +191,7 @@ function ConnectMetamask() {
       fullName: stateValues.fullName,
       email: stateValues.email,
       deliveryAddress: stateValues.deliveryAddress,
-      telephone: stateValues.telephone,
+      phone: stateValues.phone,
     };
     const response = await axios.post(
       "http://localhost:8000/user/addNewUser",
@@ -212,49 +212,49 @@ function ConnectMetamask() {
       backgroundColor: "rgb(33, 11, 3)"
 
     }}>
-     <Modal
+      <Modal
         show={showPopup}
         // onHide={handleClose}
         backdrop="static"
         // keyboard={false}
         id="parentVideo"
       >
-        <video src={animation} muted autoPlay loop  />
-        <Modal.Footer style={{background: "black"}}>
-          <Button style={{backgroundImage: `url(${btn})`, backgroundPosition: "center"}} onClick={() =>{localStorage.setItem("video", "seen"); setShowPopup(false)}}>
+        <video src={animation} muted autoPlay loop />
+        <Modal.Footer style={{ background: "black" }}>
+          <Button style={{ backgroundImage: `url(${btn})`, backgroundPosition: "center" }} onClick={() => { localStorage.setItem("video", "seen"); setShowPopup(false) }}>
             Close
           </Button>
           {/* <Button variant="primary">Understood</Button> */}
         </Modal.Footer>
       </Modal>
-       {/* reward modal */}
+      {/* reward modal */}
       <Modal
         show={showReward}
         // onHide={handleClose}
         backdrop="static"
         id="parentReward"
-        // keyboard={false}
+      // keyboard={false}
       >
         <Modal.Body>
-        <img src={rewardImg} style={{width: "100%"}} />
+          <img src={rewardImg} style={{ width: "100%" }} />
         </Modal.Body>
         <Modal.Footer>
-          <Button style={{backgroundImage: `url(${btn})`, backgroundPosition: "center"}} onClick={() => setShowReward(false)}>
+          <Button style={{ backgroundImage: `url(${btn})`, backgroundPosition: "center" }} onClick={() => setShowReward(false)}>
             Play
           </Button>
         </Modal.Footer>
       </Modal>
       <img src={plclogo} style={{ position: "absolute", bottom: "50px", left: "50px", width: 100 }} />
       {!account && (
-      <div style={{ position: "absolute", top: "20%", right: "50%", translate: "50%", textAlign: "center" }}>
-      <img src={logo} style={{ width: "100%" }}/>
-        <button
-          // style={{ position: "absolute", top: "40%", right: "40%" }}
-          onClick={connect}
-        >
-          <img src={btn} className="btn btn-custom" style={{ width: "60%" }} />
-          <p className="button-text">Connect</p>
-        </button>
+        <div style={{ position: "absolute", top: "20%", right: "50%", translate: "50%", textAlign: "center" }}>
+          <img src={logo} style={{ width: "100%" }} />
+          <button
+            // style={{ position: "absolute", top: "40%", right: "40%" }}
+            onClick={connect}
+          >
+            <img src={btn} className="btn btn-custom" style={{ width: "60%" }} />
+            <p className="button-text">Connect</p>
+          </button>
         </div>
       )}
 
@@ -346,26 +346,26 @@ function ConnectMetamask() {
                 <br />{" "}
                 <input
                   type="text"
-                  value={stateValues.telephone}
+                  value={stateValues.phone}
                   onChange={(e) =>
                     setStateValues((prev) => ({
                       ...prev,
-                      telephone: e.target.value,
+                      phone: e.target.value,
                     }))
                   }
                 />
               </label>
               <br />
               <button type="submit" value="Submit">
-                <img src={btn} className="btn btn-custom" style={{ minWidth: "150px", width: "30%" }}/>
+                <img src={btn} className="btn btn-custom" style={{ minWidth: "150px", width: "30%" }} />
                 <p className="button-text">Submit</p>
               </button>
-              <hr style={{color: "white"}} />
-              <div style={{display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center"}}>
-                  <img src={warningPic} width="50px" height="50px" />
-              <p style={{color: "white", textShadow: "0 0 10px black", textAlign: "center", fontSize: "12px", padding: "0 20px"}}>
-              Please note the following data you are about to enter is collected for PLC usage only and is protected in our secured database. The data is captured only for shipping purposes of any IRL rewards and to help streamline the process.
-              </p>
+              <hr style={{ color: "white" }} />
+              <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+                <img src={warningPic} width="50px" height="50px" />
+                <p style={{ color: "white", textShadow: "0 0 10px black", textAlign: "center", fontSize: "12px", padding: "0 20px" }}>
+                  Please note the following data you are about to enter is collected for PLC usage only and is protected in our secured database. The data is captured only for shipping purposes of any IRL rewards and to help streamline the process.
+                </p>
               </div>
             </div>
           </form>
@@ -384,52 +384,52 @@ function ConnectMetamask() {
               }}
             >
               <h1
-              style={{
-                textShadow: "0 0 10px black"
-              }}
+                style={{
+                  textShadow: "0 0 10px black"
+                }}
               >Load Steak Tokens into Roarlinko</h1>
               {/* <h1>Transfer token</h1> */}
-        <p style={{border: "solid white 1px", padding: 5, textShadow: "0 0 10px black", background: "#f70018", borderRadius: 10}}>Current Roarlinko Balance : {userData?.tokenAmount}</p>
+              <p style={{ border: "solid white 1px", padding: 5, textShadow: "0 0 10px black", background: "#f70018", borderRadius: 10 }}>Current Roarlinko Balance : {userData?.tokenAmount}</p>
 
               {userTokenList?.filter(o => o.token.contractAddress === plcToken)?.map((data, i) => (
                 <div>
                   <img src={steakToken} width="50" />
                   <input
-                    style={{width: 200}}
+                    style={{ width: 200 }}
                     value={transferAmount[i]}
                     onChange={(e) => {
                       handleTransferAmount(e, i);
                     }}
                   />
-                   <button
-                     
-                     style={{color: "white",}}
-                     onClick={() => {
-                       let temp = [...transferAmount];
-                       temp[i] = data.token.tokenBalance / 10 ** data.metadata.decimals
-                       setTransferAmount(temp);
-                       
-                     }}
-                   >
-                     {/* {data.metadata.name} */}
-                     {/* <img src={btn} className="" style={{ width: "60%" }} /> */}
-                      <p className="button-text" style={{ border: "white solid 1px", padding: 5, borderRadius: 10}}> Max</p>
-                    
-                   </button>
+                  <button
+
+                    style={{ color: "white", }}
+                    onClick={() => {
+                      let temp = [...transferAmount];
+                      temp[i] = data.token.tokenBalance / 10 ** data.metadata.decimals
+                      setTransferAmount(temp);
+
+                    }}
+                  >
+                    {/* {data.metadata.name} */}
+                    {/* <img src={btn} className="" style={{ width: "60%" }} /> */}
+                    <p className="button-text" style={{ border: "white solid 1px", padding: 5, borderRadius: 10 }}> Max</p>
+
+                  </button>
                   <div>
                     <button
-                     
-                      style={{color: "white"}}
+
+                      style={{ color: "white" }}
                       onClick={() => {
                         handleTransfer(data, i);
                       }}
                     >
                       {/* {data.metadata.name} */}
                       <img src={btn} className="btn btn-custom" style={{ width: "60%" }} />
-                       <p className="button-text"> Load</p>
-                     
+                      <p className="button-text"> Load</p>
+
                     </button>
-                   
+
                     {/* <h1>
                       {data.token.tokenBalance / 10 ** data.metadata.decimals}
                     </h1> */}
@@ -439,12 +439,12 @@ function ConnectMetamask() {
               {steakBalance > 1 ? (<>
                 <h1>{`You have ${steakBalance} Steak tokens in your wallet`}</h1>
                 <button
-          onClick={() => setShowReward(true)}
-        >
-          <img src={btn} className="btn btn-custom" style={{ width: "60%" }} />
-          <p className="button-text">Next</p>
-        </button>
-         </>
+                  onClick={() => setShowReward(true)}
+                >
+                  <img src={btn} className="btn btn-custom" style={{ width: "60%" }} />
+                  <p className="button-text">Next</p>
+                </button>
+              </>
               ) : (
                 <h1>You must have at least one Steak token to play the game</h1>
               )}
@@ -452,7 +452,7 @@ function ConnectMetamask() {
           </>
         )
       ) : null}
-     
+
     </div>
   );
 }

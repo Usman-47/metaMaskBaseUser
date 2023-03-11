@@ -10,6 +10,8 @@ import placeholder from '../images/placeholder.png'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import Reward from "./reward";
+import axios from "axios";
+
 
 
 
@@ -20,6 +22,8 @@ function Profile() {
     useWeb3React();
 
   const [showReward, setShowReward] = useState(false)
+  const [currentUserData, setCurrentUserData] = useState();
+  const [userData, setUserData] = useState();
 
 
   let web3 = new Web3(window?.web3?.currentProvider);
@@ -30,6 +34,23 @@ function Profile() {
       new Web3.providers.HttpProvider(process.env.REACT_APP_PROVIDER_URL)
     );
   }
+
+  const getUserRecord = async () => {
+    let res = await axios.get(`http://localhost:8000/user/getUesr/${account}`);
+    if (res.data) {
+      console.log(res.data)
+      setUserData(res.data)
+      setCurrentUserData(true);
+    } else {
+      setCurrentUserData(false);
+    }
+  };
+
+  useEffect(() => {
+    if(account){
+      getUserRecord()
+    }
+  }, [account]);
 
 
 
