@@ -13,7 +13,9 @@ import winnerPlaceholder from '../images/winnerPlaceholder.png'
 import popupBg from '../images/popupBg.png'
 import steakToken from '../images/steakToken.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from "react-router-dom";
+
 
 
 
@@ -22,7 +24,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons'
 function Jackpot({ setShowReward }) {
   const { active, account, library, connector, activate, deactivate } =
     useWeb3React();
-
+    const navigate = useNavigate();
   const [showPop, setShowPop] = useState(false)
 
   let web3 = new Web3(window?.web3?.currentProvider);
@@ -34,6 +36,13 @@ function Jackpot({ setShowReward }) {
     );
   }
 
+
+  useEffect(() => {
+    if(!account) {
+      console.log(account)
+      navigate("/profile")
+    }
+  }, [])
 
 
   async function connect() {
