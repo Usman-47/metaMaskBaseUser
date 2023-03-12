@@ -11,6 +11,7 @@ import Web3 from "web3";
 import Profile from "./components/profile";
 import Jackpot from "./components/jackpot";
 import AdminJackpot from "./components/adminJackpot";
+import AdminReward from "./components/adminReward";
 
 function getLibrary(provider) {
   return new Web3(provider);
@@ -44,6 +45,7 @@ function App() {
 
   const AdminRoutes = () =>  {return (<>
        <Routes>
+       <Route path="/" element={<AdminReward />} />
        <Route path="jackpot" element={<AdminJackpot />} />
        </Routes>
   </>
