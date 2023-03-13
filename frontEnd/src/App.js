@@ -12,6 +12,7 @@ import Profile from "./components/profile";
 import Jackpot from "./components/jackpot";
 import AdminJackpot from "./components/adminJackpot";
 import AdminReward from "./components/adminReward";
+import UserLookup from "./components/userlookup";
 
 function getLibrary(provider) {
   return new Web3(provider);
@@ -47,6 +48,7 @@ function App() {
        <Routes>
        <Route path="/" element={<AdminReward />} />
        <Route path="jackpot" element={<AdminJackpot />} />
+       <Route path="userlookup" element={<UserLookup />} />
        </Routes>
   </>
    )}

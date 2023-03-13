@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-function AdminReward({setShowReward}) {
+function UserLookup({setShowReward}) {
   const { active, account, library, connector, activate, deactivate } =
     useWeb3React();
     const navigate = useNavigate();
@@ -205,35 +205,38 @@ function AdminReward({setShowReward}) {
   ]
 
   return (
-    <div style={{
-      
+    <Container fluid style={{
       backgroundImage: `url(${background})`,
       backgroundPosition: "center",
       minHeight: "100vh",
-      width: "100vw",
+      // width: "100vw",
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
       backgroundColor: "rgb(33, 11, 3)",
       display: "flex",
       justifyContent: "center",
       textAlign: "center",
+      flexDirection: "column",
       alignItems: "center",
       textShadow: "0 0 10px black",
-      color: "white"
+      color: "white",
     }}>
       <div style={{ position: "absolute", left: "1%", top: 50 }}>
         <img src={plclogo} width="100%" />
       </div>
       <Button onClick={() => navigate("userlookup")} style={{ position: "absolute", right: "2%", top: 140 }} variant="warning">
-        User Lookup
+        Admin Rewards
       </Button>
-      <Container style={{ backdropFilter: "blur(10px)", padding: 20, marginTop: 200 }}>
+      
+      <Container style={{ backdropFilter: "blur(10px)",  padding: 20, marginTop: 200 }}>
         <h2 style={{ width: "auto" }}>
-        Rewards Admin Panel
+        User Lookup Admin Panel
+
 
                 </h2>
         <Row>
-        <Col sm={12} md={6}>
+          <Col sm={0} md={2} />
+        <Col sm={12} md={4}>
           <Form>
         <Form.Group style={{
             textAlign: "center",
@@ -242,154 +245,104 @@ function AdminReward({setShowReward}) {
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-around",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center"
               }}
             >
-            {tabs.map((item, i ) => (
-            <Button onClick={() => setSelectedTab(item)} style={{width: "auto", background: item === selectedTab && "darkblue"}} variant="success" >
-            {item}
-          </Button>
-            ))}
+              <Form.Group className="mb-3">
+            <Form.Label>user wallet lookup</Form.Label>
+            <Form.Control type="text" style={{width: "auto"}} />
+          
+          </Form.Group>
+            <Button variant="warning">
+       Search
+      </Button>
             </div>
-            {/* <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text> */}
           </Form.Group>
 
-          {/* for web */}
-          {selectedTab === 'web' && <>
+        
+          
           <Form.Group className="mb-3">
-            <Form.Label>Token Name</Form.Label>
+            <Form.Label>Name</Form.Label>
             <Form.Control type="text" />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Token Contract</Form.Label>
+            <Form.Label>Discord</Form.Label>
             <Form.Control type="text" />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Token Id</Form.Label>
+            <Form.Label>Address</Form.Label>
             <Form.Control type="text" />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Description</Form.Label>
+            <Form.Label>Steak balance in game</Form.Label>
             <Form.Control type="text"/>
           </Form.Group>
           <Form.Group className="mb-3">
-          <div
-              style={{
-                display: "flex",
-                justifyContent: "space-around",
-                alignItems: "center",
-              }}
-              >
-              <Row>
-                <Col sm={12} md={4}>
-              <p > Image:</p>
-              </Col>
-              <Col sm={12} md={4}>
-          <Button style={{width: "auto"}} onClick={() => document.getElementById("uploader").click()} variant="success" >
-           <input type="file" accept="image/*" onChange={handleImageSelect} id="uploader" style={{display: "none"}} />
-          upload
-          </Button>
-          </Col>
-          <Col sm={12} md={4}>
-          <img src={previewUrl} width= "100px"/>
-          </Col>
-          </Row>
-          </div>
           </Form.Group>
-          </>}
-
-            {/* for irl */}
-                {selectedTab === 'irl' && <>
-          <Form.Group className="mb-3">
-            <Form.Label>Item Name</Form.Label>
-            <Form.Control type="text" />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Description</Form.Label>
-            <Form.Control type="text"/>
-          </Form.Group>
-          <Form.Group className="mb-3">
-          <div
-              style={{
-                display: "flex",
-                justifyContent: "space-around",
-                alignItems: "center",
-              }}
-              >
-              <Row>
-                <Col sm={12} md={4}>
-              <p > Image:</p>
-              </Col>
-              <Col sm={12} md={4}>
-          <Button style={{width: "auto"}} onClick={() => document.getElementById("uploader").click()} variant="success" >
-           <input type="file" accept="image/*" onChange={handleImageSelect} id="uploader" style={{display: "none"}} />
-          upload
-          </Button>
-          </Col>
-          <Col sm={12} md={4}>
-          <img src={previewUrl} width= "100px"/>
-          </Col>
-          </Row>
-          </div>
-          </Form.Group>
-          </>}
-
-              {/* for eth */}
-           {selectedTab === 'eth' && <>
-          <Form.Group className="mb-3">
-            <Form.Label>Set ETH limit</Form.Label>
-            <Form.Control type="text" />
-          </Form.Group>
-          </>}
-
-          <div
-              style={{
-                display: "flex",
-                justifyContent: "space-around",
-              }}
-            >
-          <Button style={{width: "auto"}} variant="success" >
-            save
-          </Button>
-          <Button style={{width: "auto"}} variant="success" >
-            Update 
-          </Button>
-          </div>
+         
         </Form>
             </Col>
-        <Col style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  flexDirection: "column",
-                  alignItems: "center"
-                }} sm={12} md={6}>
-                  <h5>
-                    Select Box
-                  </h5>
-          {chestDetails.map((i, key) => (
-              <div
-                style={{
+            <Col sm={12} md={4}>
+          <Form>
+        <Form.Group style={{
+            textAlign: "center",
+          
+           textShadow: "0 0 20px black"}} className="m-3" controlId="formBasicEmail">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center"
+              }}
+            >
+              <Form.Group className="mb-3">
+            <Form.Label>manual add tokens</Form.Label>
+            <Form.Control type="text" style={{width: "auto"}} />
+          
+          </Form.Group>
+            <Button variant="warning">
+       update
+      </Button>
+            </div>
+          </Form.Group>
+
+        </Form>
+            </Col>
+            <Col sm={0} md={2} />
+        
+        </Row>
+      
+        <Row style={{
                   display: "flex",
                   justifyContent: "center",
                   flexDirection: "row",
                   alignItems: "center",
+                }}>
+
+          {chestDetails.map((i, key) => (
+              <Col
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  alignItems: "center",
                   cursor: "pointer"
                 }}
-                onClick={() => setSelectedBox(i.name)}
+                sm={12} md={3}
               >
-                <img style={{
-                  border: selectedBox === i.name ? "solid 2px yellow" : "none",
-                  padding: 5
-                }} src={i.imageName} width="20%" />
+                <img src={i.imageName} width="100%" />
                 <p style={{ width: "auto" }}>
-                 items left : {i.count}
+                 {i.count}
                 </p>
-              </div>
+              </Col>
             ))}
-            </Col>
-        </Row>
+            </Row>
+            <Button onClick={fetchPrizeDetails}  variant="success">
+        open rewards
+      </Button>
       </Container>
       <Modal
         size="lg"
@@ -456,7 +409,7 @@ function AdminReward({setShowReward}) {
 
         </Modal.Body>
       </Modal>
-    </div>
+    </Container>
   )
 }
-export default AdminReward;
+export default UserLookup;
