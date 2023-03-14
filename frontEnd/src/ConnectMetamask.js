@@ -96,7 +96,9 @@ function ConnectMetamask() {
     }
   }, [account]);
   const getUserRecord = async () => {
-    let res = await axios.get(`http://localhost:8000/user/getUesr/${account}`);
+    let res = await axios.get(`http://localhost:8000/v1/user/get-specific-uesr`, {
+      params: { walletAddress: account }
+    });
     if (res.data) {
       console.log(res.data)
       setUserData(res.data)
@@ -169,7 +171,7 @@ function ConnectMetamask() {
       account,
     };
     const response = await axios.patch(
-      "http://localhost:8000/user/updateUser",
+      "http://localhost:8000/v1/user/update-user",
       body
     );
     // }
@@ -194,7 +196,7 @@ function ConnectMetamask() {
       phone: stateValues.phone,
     };
     const response = await axios.post(
-      "http://localhost:8000/user/addNewUser",
+      "http://localhost:8000/v1/user/add-new-user",
       data
     );
     if (response.data) {

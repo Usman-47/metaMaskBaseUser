@@ -9,6 +9,7 @@ const getSpecificUser = async ({
     });
     return user;
   } catch (error) {
+    console.log(error.message)
     const err = new Error(error.message)
     throw err
   }

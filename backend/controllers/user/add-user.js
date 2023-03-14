@@ -3,6 +3,7 @@ const User = require("../../models/user")
 const addUser = async ({
     walletAddress,
     fullName,
+    discordId,
     email,
     deliveryAddress,
     phone
@@ -12,6 +13,7 @@ const addUser = async ({
             {
                 walletAddress,
                 fullName,
+                discordId,
                 email,
                 deliveryAddress,
                 phone

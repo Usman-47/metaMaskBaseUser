@@ -7,20 +7,24 @@ const {
     getSpecificUser
 } = require("../controllers/user")
 
-router.post("/add-New-User", async (req, res) => {
+router.post("/add-new-user", async (req, res) => {
     try {
+        console.log(req.body, "walletAddresswalletAddress")
+
         const {
             walletAddress,
             fullName,
-            discordName,
+            discordId,
             email,
             deliveryAddress,
             phone
         } = req.body;
 
+
         const user = await addUser({
             walletAddress,
             fullName,
+            discordId,
             email,
             deliveryAddress,
             phone
@@ -31,7 +35,7 @@ router.post("/add-New-User", async (req, res) => {
     }
 });
 
-router.patch("/update-User", async (req, res) => {
+router.patch("/update-user", async (req, res) => {
     try {
         const {
             walletAddress,
@@ -54,7 +58,7 @@ router.patch("/update-User", async (req, res) => {
     }
 });
 
-router.patch("/delete-User", async (req, res) => {
+router.patch("/delete-user", async (req, res) => {
     try {
         const { walletAddress } = req.query;
         let result = await deleteUser({ walletAddress })
@@ -64,9 +68,8 @@ router.patch("/delete-User", async (req, res) => {
     }
 });
 
-router.get("/get-specific-uesr/", async (req, res) => {
+router.get("/get-specific-uesr", async (req, res) => {
     try {
-
         const {
             walletAddress,
         } = req.query;
@@ -77,7 +80,7 @@ router.get("/get-specific-uesr/", async (req, res) => {
     }
 });
 
-router.get("/get-uesrs/", async (req, res) => {
+router.get("/get-uesrs", async (req, res) => {
     try {
         const user = await getUsers();
         res.status(200).send(user);

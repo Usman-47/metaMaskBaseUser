@@ -3,7 +3,7 @@ var userSchema = new mongoose.Schema(
     {
         walletAddress: String,
         fullName: { type: String },
-        discordName: { type: String },
+        discordId: { type: String },
         email: String,
         deliveryAddress: String,
         phone: String,

@@ -2948,10 +2948,10 @@ ajv@^8.0.1:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-alchemy-sdk@^2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/alchemy-sdk/-/alchemy-sdk-2.2.5.tgz#5d27d7363200dfb1c89b0ca3f4ca9805d6e6474e"
-  integrity sha512-PUSNyV1bTkSl4fsmDG7H68h2gKETnwKSVjINxuPsj8rv2PpUJuRYTuMFHUdZBEUifQ2WkbciB80OEbwvTl3xAA==
+alchemy-sdk@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/alchemy-sdk/-/alchemy-sdk-2.6.1.tgz#90fda4b346646c5b33b8ebe5acb6ca2fa7e97ca7"
+  integrity sha512-amW8t5CeAm5sDeUazjn6X5n7ypex+1VtLwiANt7XpjQJab41RrSTRaryEFm8jUNBB/JfwkvE9RlnXrpSOpYbdw==
   dependencies:
     "@ethersproject/abi" "^5.7.0"
     "@ethersproject/abstract-provider" "^5.7.0"
